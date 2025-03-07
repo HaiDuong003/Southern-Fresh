@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+// Route::get('/', function () {
+//     return view('index');
+// })->name('/');
+Route::get('/',  function () {
     return view('index');
 })->name('/');
+Route::get('/login', function () {
+    return view('auth/login');
+})->name('login');
