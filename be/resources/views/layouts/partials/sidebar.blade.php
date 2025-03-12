@@ -1,12 +1,16 @@
 <div class="scrollbar-inner sidebar-wrapper">
     <div class="user">
         <div class="photo">
-            <img src="assets/img/profile.jpg">
+            <img src="{{ asset('assets/img/log.jpg') }}">
         </div>
         <div class="info">
             <a class="" data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                 <span>
-                    Hizrian
+                    @if(session('user'))
+                        {{ session('user') }}
+                    @else
+                        Guest
+                    @endif
                     <span class="user-level">Administrator</span>
                     <span class="caret"></span>
                 </span>

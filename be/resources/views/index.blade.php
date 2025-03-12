@@ -13,7 +13,7 @@
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Visitors</p>
+                                <p class="card-category">Employees</p>
                                 <h4 class="card-title">1,294</h4>
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        {{-- <div class="col-md-3">
             <div class="card card-stats card-success">
                 <div class="card-body ">
                     <div class="row">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="col-md-3">
             <div class="card card-stats card-danger">
                 <div class="card-body">
@@ -51,7 +51,7 @@
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Subscribers</p>
+                                <p class="card-category">Jobs</p>
                                 <h4 class="card-title">1303</h4>
                             </div>
                         </div>
@@ -60,7 +60,7 @@
             </div>
         </div>
         <div class="col-md-3">
-            <div class="card card-stats card-primary">
+            <div class="card card-stats card-success">
                 <div class="card-body ">
                     <div class="row">
                         <div class="col-5">
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-7 d-flex align-items-center">
                             <div class="numbers">
-                                <p class="card-category">Order</p>
+                                <p class="card-category">Complete</p>
                                 <h4 class="card-title">576</h4>
                             </div>
                         </div>
