@@ -86,9 +86,9 @@
                 </ul>
             </li>
             <li class="nav-item dropdown">
-                <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false"> <img
-                        src="assets/img/profile.jpg" alt="user-img" width="36"
-                        class="img-circle"><span>Hizrian</span></span> </a>
+                <a class="dropdown-toggle profile-pic" href="{{ route('dashboard') }}" aria-expanded="false"> <img
+                        src="{{ asset('assets/img/log.jpg') }}" alt="user-img" width="36"
+                        class="img-circle"><span>Hizrian</span> </a>
                 <ul class="dropdown-menu dropdown-user">
                     <li>
                         <div class="user-box">

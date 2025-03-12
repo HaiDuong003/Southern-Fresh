@@ -1,8 +1,5 @@
-<a href="index.html" class="logo">
-    Ready Dashboard
+<a class="profile-pic" href="{{ route('dashboard') }}"> <img src="{{ asset('assets/img/log.jpg') }}" alt="user-img" width="36"
+        class="img-circle"></a>
+<a href="{{ route('dashboard') }}" class="logo">
+    Southern Fresh
 </a>
-<button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse"
-    aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-</button>
-<button class="topbar-toggler more"><i class="la la-ellipsis-v"></i></button>
