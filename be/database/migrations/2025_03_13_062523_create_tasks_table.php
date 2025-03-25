@@ -11,10 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->require();
+            $table->longText('desc')->require();
+            $table->bigInteger('salary_per_hour')->require();
+            $table->time('start_time')->require();
+            $table->time('end_time')->require();
             $table->timestamps();
-            // $table->string('name')->require();
         });
     }
 
@@ -23,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('tasks');
     }
 };

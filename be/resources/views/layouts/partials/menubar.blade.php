@@ -1,3 +1,4 @@
+@if(session('is_active') == true || session('is_active') == 1)
 <li class="nav-item {{ asset('/') ? 'active' : '' }}">
     <a href="{{ route('dashboard') }}">
         <p>Dashboard</p>
@@ -13,6 +14,7 @@
         <p>Jobs</p>
     </a>
 </li>
+@endif
 @if(!empty(session('user')))
 <li class="nav-item">
     <a href="{{ route('user.logout') }}">

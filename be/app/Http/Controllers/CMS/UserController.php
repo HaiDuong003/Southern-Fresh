@@ -4,22 +4,26 @@ namespace App\Http\Controllers\CMS;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use App\Repositories\CMS\UserRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use App\Services\CMS\UserService;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use function Laravel\Prompts\error;
+
 class UserController extends Controller
 {
     //
-    protected $userRepository;
+    protected $userService;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserService $userService)
     {
         //
-        $this->userRepository = $userRepository;
+        $this->userService = $userService;
     }
 
     public function index()
@@ -30,31 +34,44 @@ class UserController extends Controller
     public function loginForm()
     {
         //
+        if (Auth::check()) {
+            return redirect()->route('dashboard')->withSuccess(__('messages.success.auth.login'));
+        }
+
         return view('auth.login');
     }
 
     public function login(LoginRequest $request)
     {
-        //
         $validated = $request->validated();
-        // $user = 
         try {
             if (Auth::attempt($validated)) {
-                $userLogin = $this->userRepository->findByEmail($validated['email']);
-                if (!empty($userLogin) && Hash::check($validated['password'], $userLogin['password'])) {
-                    // $userInfor = Auth::user();
-                    // print_r($a->password);
+                $userLogin = $this->userService->authLogin($validated);
+                if (!empty($userLogin)) {
                     $request->session()->regenerate();
-                    session(['user' => $userLogin['name'],]);
-                    return redirect()->route('dashboard')->withSuccess(__('messages.success.auth.login'));;
-                    // echo session('user');
+                    session([
+                        'user' => $userLogin['name'],
+                        'is_active' => $userLogin['is_active'],
+                        'role' => $userLogin['role']
+                    ]);
+                    return redirect()->route('dashboard')->withSuccess(__('messages.success.auth.login'));
                 }
             } else {
-                redirect()->route('login')->with('email', 'Wrong');
+                return back()->withErrors([
+                    "email" => "Email or password is wrong"
+                ])->withInput();
             }
         } catch (AuthenticationException $e) {
             return back()->withErrors(['email' => $e->getMessage()]);
         }
+    }
+
+    //  register
+    public function register(RegisterRequest $request)
+    {
+        //
+        $validated = $request->validated();
+        $userRegister = $this->userService->create($validated);
     }
 
     public function logout(Request $request)
@@ -64,5 +81,17 @@ class UserController extends Controller
         $request->session()->regenerateToken();
         return redirect()
             ->route('login');
+    }
+
+    public function profileUser()
+    {
+        //
+        $userProfile = [];
+        if (Auth::user()) {
+            $userProfile = Auth::user();
+        } else {
+            echo 'wrong';
+        }
+        return view('users.profileUser', compact('userProfile'));
     }
 }
