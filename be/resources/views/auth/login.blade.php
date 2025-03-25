@@ -267,27 +267,31 @@
 <body>
     <div class="container" id="container">
         <div class="form-container sign-up-container">
-            <form action="#">
+            <form action="{{ route('register') }}" method="POST">
+                @csrf
                 <h1>Create Account</h1>
-                <div class="social-container">
-                    <a href="{{ route('dashboard') }}">Return</a>
-                </div>
                 <span>or use your email for registration</span>
-                <input type="text" placeholder="Name" />
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="Password" />
-                <button>Sign Up</button>
+                <input type="text" placeholder="Name" name="name" id="name_register"/>
+                <span style="font-size: 12px; color: red;" id="error_name">
+                </span>
+                <input type="email" placeholder="Email" name="email" id="email_register"/>
+                <span style="font-size: 12px; color: red;" id="error_email">
+                </span>
+                <input type="password" placeholder="Password" name="password" id="password_register"/>
+                <span style="font-size: 12px; color: red;" id="error_password">
+                </span>
+                <input type="password" placeholder="Check Password" name="password_confirmation" id="password_register_confirmation"/>
+                <span style="font-size: 12px; color: red;" id="error_password_confirm">
+                </span>
+                <button id="abc">Sign Up</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
             <form action="{{ route('user.login') }}" method="POST" novalidate>
                 @csrf
                 <h1>Sign in</h1>
-                <div class="social-container">
-                    <a href="{{ route('dashboard') }}"></a>
-                </div>
                 <span>or use your account</span>
-                <input type="email" placeholder="Email" name="email" />
+                <input type="email" placeholder="Email" name="email" value="{{ old('email') }}"/>
                 <span style="font-size: 12px; color: red;"> 
                     @error('email')
                     {{ $message ? $message : ' ' }}
@@ -328,6 +332,43 @@
 
         signInButton.addEventListener('click', () => {
             container.classList.remove("right-panel-active");
+        });
+
+        const noLoading = document.getElementById('abc');
+        noLoading.addEventListener('click', (even)=>{
+            let error = false;
+            let name = document.getElementById('name_register').value.trim();
+            let email = document.getElementById('email_register').value.trim();
+            let password = document.getElementById('password_register').value.trim();
+            let password_confirmation = document.getElementById('password_register_confirmation').value.trim();
+            let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            document.getElementById('error_name').textContent = '';
+            document.getElementById('error_email').textContent = '';
+            document.getElementById('error_password').textContent = '';
+            document.getElementById('error_password_confirm').textContent = '';
+            if(name.length == 0){
+                document.getElementById('error_name').textContent = 'You must fill name';
+                even.preventDefault();
+            }
+            if(email.length == 0){
+                document.getElementById('error_email').textContent = 'You must fill email';
+                even.preventDefault();
+            } else if(!emailPattern.test(email)){
+                    document.getElementById('error_email').textContent = 'It is not an email';
+                    even.preventDefault();
+                }
+            if(password.length == 0){
+                document.getElementById('error_password').textContent = 'You must fill password';
+                even.preventDefault();
+            }
+            if(password_confirmation.length == 0){
+                document.getElementById('error_password_confirm').textContent = 'You must confirm password';
+                even.preventDefault();
+            } else if(password_confirmation != password){
+                document.getElementById('error_password_confirm').textContent = 'Password wrong';
+                even.preventDefault();
+            }
         });
     </script>
 </body>

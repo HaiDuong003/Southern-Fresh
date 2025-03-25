@@ -20,7 +20,7 @@
             <div class="collapse in" id="collapseExample" aria-expanded="true" style="">
                 <ul class="nav">
                     <li>
-                        <a href="#profile">
+                        <a href="{{ route('profile') }}">
                             <span class="link-collapse">My Profile</span>
                         </a>
                     </li>

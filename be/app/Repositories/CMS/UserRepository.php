@@ -22,7 +22,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function findById(int $id)
     {
-        //
+        //0000
         return $this->user->find($id);
     }
 
