@@ -26,26 +26,8 @@
             {{-- </form> --}}
         </form>
 
-        <div id="">
-            <table class="table table-head-bg-success table-striped table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Action</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody id="employeeTable">
-                    @include('components.list_employee')
-                </tbody>
-            </table>
-            <ul class="pagination pg-primary">
-                {{-- <x-pagination :paginator="$list" /> --}}
-                {!! $list->links('components.pagination') !!}
-            </ul>
+        <div id="employeeTable">
+            @include('components.list_employee')
         </div>
 
     </div>
@@ -54,28 +36,19 @@
     <script>
         $(document).ready(function(){
             function LoadEmployee(page = 1){
-                //
-                let search = $('#name').val();
+                let name = $('#name').val();
                 let is_active = $('#is_active').val();
                 $.ajax({
                     url: "{{ route('filterEmployee') }}?page=" + page,
                     type: "GET",
                     data: {name: name, is_active: is_active},
                     success: function(response){
+                        // render view
                         $('#employeeTable').html(response);
-                        setTimeout(function() {
-                            $(".pagination .page-item").removeClass("active");
-                            // Lấy số trang từ URL (page=2)
-                            let pageNumber = new URL(url, window.location.origin).searchParams.get("page");
-                            console.log(pageNumber);
-                            
-                            // Tìm phần tử có href chứa "?page=N"
-                            $('.pagination .page-link').each(function() {
-                                if ($(this).attr("href").includes("page=" + pageNumber)) {
-                                    $(this).parent().addClass("active");
-                                }
-                            });
-                        }, 100);
+                        // remove class active in paginate
+                        $(".pagination .page-item").removeClass("active");
+                        // add class active in paginate with id = item + page--
+                        $("#item" + page).addClass("active");
                     },
                 });
             }
@@ -92,8 +65,8 @@
 
             // call ajax when click in paginate
             $(document).on('click', '.pagination a', function(event){
-                event.preventDefault(); // Ngăn chặn tải lại trang
-                let page = $(this).attr('href').split('page=')[1]; // Lấy số trang từ URL
+                event.preventDefault(); // block reload website
+                let page = $(this).attr('href').split('page=')[1]; // get page by url
                 LoadEmployee(page);
             });
         });

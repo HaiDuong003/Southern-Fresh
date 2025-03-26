@@ -49,11 +49,7 @@ Route::middleware(['checklogin'])->group(function () {
         Route::get('/employee/detail/{id}', [EmployeeController::class, 'detailEmployee'])->name('detailEmployee');
         Route::get('/employee/edit/{id}', [EmployeeController::class, 'editEmployeeForm'])->name('editEmployee');
         Route::put('/employee/edit/{id}', [EmployeeController::class, 'editEmployee'])->name('editEmployee');
-        Route::get(
-            '/employee/add',
-            function () {
-                return view('managements.employee.add');
-            }
-        )->name('addEmployee');
+        Route::get('/employee/add', [EmployeeController::class, 'addEmployeeForm'])->name('addEmployee');
+        Route::post('/employee/add', [EmployeeController::class, 'addEmployee'])->name('addEmployee');
     });
 });
