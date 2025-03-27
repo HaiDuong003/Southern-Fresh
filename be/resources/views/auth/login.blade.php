@@ -296,7 +296,7 @@
                     @error('email')
                     {{ $message ? $message : ' ' }}
                     @enderror
-                </span>
+                </span> 
                 <input type="password" placeholder="Password" name="password" />
                 @error('password')
                 <span

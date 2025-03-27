@@ -10,15 +10,22 @@ use Illuminate\Http\Request;
 class EmployeeController extends Controller
 {
     //
-
-    public function listEmployee(EmployeeService $employee, Request $request)
+    public $employee;
+    public function __construct(EmployeeService $employee)
     {
-        $list = $employee->paginateAll(5);
-        return view('managements.Employee.list', compact('list'));
+        $this->employee = $employee;
+    }
+
+    public function listEmployee(Request $request)
+    {
+        // $list = $this->employee->paginateAll(5);
+        $conditions[] = ['is_active', '=', 1];
+        $list = $this->employee->paginateFill($conditions, 5);
+        return view('managements.employee.list', compact('list'));
     }
 
     // fillter Employee
-    public function filterEmployee(Request $request, EmployeeService $employee)
+    public function filterEmployee(Request $request)
     {
         try {
             //code...
@@ -51,8 +58,8 @@ class EmployeeController extends Controller
             }
 
             $list = empty($conditions)
-                ? $employee->paginateAll(5)
-                : $employee->paginateFill($conditions, 5);
+                ? $this->employee->paginateAll(5)
+                : $this->employee->paginateFill($conditions, 5);
 
             return view('components.list_employee', compact('list'))->render();
         } catch (\Throwable $th) {
@@ -61,19 +68,19 @@ class EmployeeController extends Controller
     }
 
     // detail employee
-    public function detailEmployee(EmployeeService $employee, int $id)
+    public function detailEmployee(int $id)
     {
         //
-        $employee = $employee->findById($id);
+        $employee = $this->employee->findById($id);
         // dd($employee);
-        return view('managements.Employee.detailEmployee', compact('employee'));
+        return view('managements.employee.detailEmployee', compact('employee'));
     }
 
-    public function editEmployeeForm(EmployeeService $employee, int $id)
+    public function editEmployeeForm(int $id)
     {
         //
-        $employee = $employee->findById($id);
-        return view('managements.Employee.edit_employee', compact('employee'));
+        $employee = $this->employee->findById($id);
+        return view('managements.employee.edit_employee', compact('employee'));
     }
 
     public function editEmployee()
@@ -89,8 +96,36 @@ class EmployeeController extends Controller
 
     public function addEmployee(RegisterRequest $request)
     {
-        //
         $validated = $request->validated();
-        dd($validated);
+        // $allInfor = $request->all();
+        try {
+            if (!empty($validated)) {
+                $validated['role'] = $request->role;
+                $validated['is_active'] = true;
+                // dd($validated);
+                $add = $this->employee->create($validated);
+                if ($add) {
+                    if ($validated['role'] == 'employee') {
+                        return redirect()->route('listEmployee');
+                    } else {
+                        return redirect()->route('listManager');
+                    }
+                }
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+
+    public function deleteEmployee(int $id)
+    {
+        //
+        // $employeeDelete = $this->employee->
+        $deleted = $this->employee->delete($id);
+        if ($deleted['1'] == 'employee') {
+            return redirect()->route('listEmployee');
+        } else {
+            return redirect()->route('listManager');
+        }
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <div class="card-body">
-        <span style="font-size: 24px; margin-right: 20px;">Employees list</span>
+        <span style="font-size: 24px; margin-right: 20px;">Managers list</span>
         <a href="{{ route('addEmployee') }}"><button class="btn btn-primary">Add New Employee</button></a>
         <form class="demo row">
             <div class="dropdown col-9">
@@ -27,7 +27,7 @@
         </form>
 
         <div id="employeeTable">
-            @include('components.list_employee')
+            @include('components.list_manager')
         </div>
 
     </div>
@@ -39,9 +39,12 @@
                 let name = $('#name').val();
                 let is_active = $('#is_active').val();
                 $.ajax({
-                    url: "{{ route('filterEmployee') }}?page=" + page,
+                    url: "{{ route('filterManager') }}?page=" + page,
                     type: "GET",
-                    data: {name: name, is_active: is_active},
+                    data: {
+                        name: name, 
+                        is_active: is_active
+                    },
                     success: function(response){
                         // render view
                         $('#employeeTable').html(response);

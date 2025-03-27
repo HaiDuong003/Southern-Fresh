@@ -5,26 +5,46 @@
             <div class="col-md-6">
                 <form action="{{ route('addEmployee') }}" method="POST">
                     @csrf
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">Account</div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <label >Name</label>
-                            <input name="name" type="text" class="form-control input-square" placeholder="Name">
+                            <label >Name </label>
+                            <span style="font-size: 12px; color: red;"> 
+                                @error('name')
+                                {{ $message ? $message : ' ' }}
+                                @enderror
+                            </span>
+                            <input name="name" type="text" class="form-control input-square" placeholder="Name" 
+                            value="{{ old('name') }}">
                         </div>
                         <div class="form-group">
-                            <label >Email</label>
-                            <input name="email" type="email" class="form-control input-square" placeholder="Email">
+                            <label >Email </label>
+                            <span style="font-size: 12px; color: red;"> 
+                                @error('email')
+                                {{ $message ? $message : ' ' }}
+                                @enderror
+                            </span>
+                            <input name="email" type="email" class="form-control input-square" placeholder="Email" 
+                            value="{{ old('email') }}">
                         </div>
                         <div class="form-group">
                             <label >Password</label>
-                            <input name="password" type="password" class="form-control input-square" placeholder="Password">
+                            <span style="font-size: 12px; color: red;"> 
+                                @error('password')
+                                {{ $message ? $message : ' ' }}
+                                @enderror
+                            </span>
+                            <input name="password" type="password" class="form-control input-square" placeholder="Password" >
                         </div>
                         <div class="form-group">
-                            <label >Confirm Password</label>
-                            <input name="password_confirmed" type="password" class="form-control input-square" placeholder="Confirm password">
+                            <label >Confirm Password</label> 
+                            <input name="password_confirmation" type="password" class="form-control input-square" placeholder="Confirm password">
                         </div>
                         <div class="form-group">
                             <label for="squareSelect">Role</label>
@@ -41,8 +61,8 @@
                 </form>
             </div>
             <div class="col-md-6">
-                <form action="{{ route('addEmployee') }}" method="POST">
-                    @csrf
+                {{-- <form action="{{ route('addEmployee') }}" method="POST">
+                    @csrf --}}
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">Information</div>
@@ -71,7 +91,7 @@
                     </div>
                 </div>
                 <button type="button" id="submitAll" class="btn btn-success">Submit All</button>
-                </form>
+                {{-- </form> --}}
             </div>
         </div>
     </div>

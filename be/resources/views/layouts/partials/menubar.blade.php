@@ -9,6 +9,13 @@
         <p>Employees</p>
     </a>
 </li>
+@if(session('role') == 'admin')
+<li class="nav-item">
+    <a href="{{ route('listManager') }}">
+        <p>Manager</p>
+    </a>
+</li>
+@endif
 <li class="nav-item">
     <a href="index.html">
         <p>Jobs</p>

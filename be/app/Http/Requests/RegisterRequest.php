@@ -23,7 +23,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required|alpha_num',
+            'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|confirmed',
         ];
@@ -34,7 +34,6 @@ class RegisterRequest extends FormRequest
         return [
             //
             'name.required' => 'You have not entered a name',
-            'name.alphe_num' => 'Name just have alphe and number',
             'email.required' => 'You have not entered an email',
             'email.email' => 'This is not an email',
             'email.unique' => 'This email is exist',

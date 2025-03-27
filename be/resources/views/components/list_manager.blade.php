@@ -26,14 +26,14 @@
                         </button>
                         </a>
                         
-                    <form action="{{ route('deleteEmployee', $item->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button data-toggle="tooltip" title=""
+                        <form action="{{ route('deleteEmployee', $item->id) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button data-toggle="tooltip" title=""
                             class="btn btn-link btn-simple-danger" data-original-title="Remove" fdprocessedid="ds9ov5">
                             <i class="la la-times"></i>
                         </button>
-                    </form>
+                        </form>
                     </div>
                 </td>
                 <td>

@@ -2,10 +2,13 @@
 
 use App\Http\Controllers\CMS\DashboardController;
 use App\Http\Controllers\CMS\EmployeeController;
+use App\Http\Controllers\CMS\ManagerController;
 use App\Http\Controllers\CMS\UserController;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Middleware\CheckLogin;
+use App\Services\CMS\EmployeeService;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,12 +47,19 @@ Route::middleware(['checklogin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/profile', [UserController::class, 'profileUser'])->name('profile');
     Route::prefix('admin')->group(function () {
-        Route::get('/employee/list', [EmployeeController::class, 'listEmployee'])->name('listEmployee');
-        Route::get('/employee/list/fillter', [EmployeeController::class, 'filterEmployee'])->name('filterEmployee');
-        Route::get('/employee/detail/{id}', [EmployeeController::class, 'detailEmployee'])->name('detailEmployee');
-        Route::get('/employee/edit/{id}', [EmployeeController::class, 'editEmployeeForm'])->name('editEmployee');
-        Route::put('/employee/edit/{id}', [EmployeeController::class, 'editEmployee'])->name('editEmployee');
-        Route::get('/employee/add', [EmployeeController::class, 'addEmployeeForm'])->name('addEmployee');
-        Route::post('/employee/add', [EmployeeController::class, 'addEmployee'])->name('addEmployee');
+        Route::prefix('/employee')->group(function () {
+            Route::get('/list', [EmployeeController::class, 'listEmployee'])->name('listEmployee');
+            Route::get('/list/fillter', [EmployeeController::class, 'filterEmployee'])->name('filterEmployee');
+            Route::get('/detail/{id}', [EmployeeController::class, 'detailEmployee'])->name('detailEmployee');
+            Route::get('/edit/{id}', [EmployeeController::class, 'editEmployeeForm'])->name('editEmployee');
+            Route::put('/edit/{id}', [EmployeeController::class, 'editEmployee'])->name('editEmployee');
+            Route::get('/add', [EmployeeController::class, 'addEmployeeForm'])->name('addEmployee');
+            Route::post('/add', [EmployeeController::class, 'addEmployee'])->name('addEmployee');
+            Route::delete('/delete/{id}', [EmployeeController::class, 'deleteEmployee'])->name('deleteEmployee');
+        });
+        Route::prefix('/manager')->group(function () {
+            Route::get('/list', [ManagerController::class, 'listManager'])->name('listManager');
+            Route::get('/list/fillter', [ManagerController::class, 'filterManager'])->name('filterManager');
+        });
     });
 });

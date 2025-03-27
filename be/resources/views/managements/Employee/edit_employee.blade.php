@@ -18,6 +18,13 @@
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" placeholder="Password" fdprocessedid="sxz3x8">
                         </div>
+                        <div class="form-group">
+                            <label for="squareSelect">Role</label>
+                            <select name="role" class="form-control input-square" id="squareSelect">
+                                <option value="employee">Employee</option>
+                                <option value="manager">Manager</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="card-body">
                         <p class="demo">

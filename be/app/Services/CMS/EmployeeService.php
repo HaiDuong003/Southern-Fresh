@@ -44,4 +44,22 @@ class EmployeeService
     {
         return $this->employeeRepository->find('role', 'employee')->where($array)->paginate($count);
     }
+
+    public function create(array $data)
+    {
+        return $this->employeeRepository->create($data);
+    }
+
+    public function delete(int  $id)
+    {
+        $data = $this->employeeRepository->findById($id);
+        if ($data) {
+            return [
+                $data->delete(),
+                $data['role']
+            ];
+        } else {
+            //
+        }
+    }
 }
