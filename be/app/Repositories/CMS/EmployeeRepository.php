@@ -34,9 +34,10 @@ class EmployeeRepository implements EmployeeInterface
         // 
         return $this->employee->create($data);
     }
-    public function update(int $id, array $data)
+    public function update(array $data, $id)
     {
         //
+        return $this->employee->update($data, ['id' => $id]);
     }
     public function delete(int $id)
     {

@@ -1,146 +1,91 @@
 @extends('layouts.app')
 @section('content')
-<div class="content">
     <div class="container-fluid">
         <h4 class="page-title">Forms</h4>
         <div class="row">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Base Form Control</div>
+                        <div class="card-title">Acount</div>
                     </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter Email" fdprocessedid="ldu2l5">
+                    <form action="{{ route('editEmployee', $employee->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="text" hidden value="update_account" name="form_type" readonly>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="email">Name</label>
+                                <input name="name" type="text" class="form-control" id="email"
+                                    placeholder="Enter Email" value="{{ $employee->name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input name="email" type="email" class="form-control" id="email"
+                                    placeholder="Enter Email" value="{{ $employee->email }}" readonly>
+                            </div>
+                            {{-- <div class="form-group">
+                                <label for="password">Password</label>
+                                <input name="password" type="password" class="form-control" id="password" placeholder="Password" >
+                            </div> --}}
+                            <div class="form-group">
+                                <label for="squareSelect">Role</label>
+                                <select name="role" class="form-control input-square" id="squareSelect">
+                                    <option value="employee">Employee</option>
+                                    <option value="manager" {{ $employee->role == 'manager' ? 'selected' : '' }}>Manager
+                                    </option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" placeholder="Password" fdprocessedid="sxz3x8">
+                        <div class="card-body">
+                            <p class="demo">
+                                <input type="checkbox" {{ $employee->is_active == true ? 'checked' : '' }}
+                                    data-toggle="toggle" data-onstyle="success" data-style="btn-round">
+                            </p>
                         </div>
-                        <div class="form-group">
-                            <label for="squareSelect">Role</label>
-                            <select name="role" class="form-control input-square" id="squareSelect">
-                                <option value="employee">Employee</option>
-                                <option value="manager">Manager</option>
-                            </select>
+                        <div class="card-body">
+                            <button class="btn btn-success">Update Account</button>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <p class="demo">
-                            <input type="checkbox" {{ $employee->is_active == true ? 'checked' : '' }} data-toggle="toggle" data-onstyle="success"
-                                data-style="btn-round">
-                        </p>
-                    </div>
-                    </div>
+                    </form>
                 </div>
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Form Control Styles</div>
-                        </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Information</div>
+                    </div>
+                    <form action="{{ route('editEmployee', $employee->id) }}" method="POST">
+                        @csrf
+                        <input type="text" hidden value="update_information" name="form_tpye" readonly>
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="squareInput">Square Input</label>
-                                <input type="text" class="form-control input-square" id="squareInput" placeholder="Square Input" fdprocessedid="yraumj">
+                                <label>Tax code</label>
+                                <input name="tax_code" type="text" class="form-control input-square"
+                                    placeholder="Tax Code">
                             </div>
                             <div class="form-group">
-                                <label for="squareSelect">Square Select</label>
-                                <select class="form-control input-square" id="squareSelect" fdprocessedid="yvnnyr">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
+                                <label>Bank account</label>
+                                <input name="text" type="email" class="form-control input-square"
+                                    placeholder="Bank Account">
                             </div>
                             <div class="form-group">
-                                <label for="pillInput">Pill Input</label>
-                                <input type="text" class="form-control input-pill" id="pillInput" placeholder="Pill Input" fdprocessedid="d0mhmc">
+                                <label>Phone number</label>
+                                <input name="phone_number" type="text" class="form-control input-square"
+                                    placeholder="Phone number">
                             </div>
                             <div class="form-group">
-                                <label for="pillSelect">Pill Select</label>
-                                <select class="form-control input-pill" id="pillSelect" fdprocessedid="bxyus1">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
+                                <label>Address</label>
+                                <input name="address" type="text" class="form-control input-square"
+                                    placeholder="Address">
                             </div>
                             <div class="form-group">
-                                <label for="solidInput">Solid Input</label>
-                                <input type="text" class="form-control input-solid" id="solidInput" placeholder="Solid Input" fdprocessedid="wt0jxl">
+                                <label for="formFile" class="form-label">Avatar</label>
+                                <input name="avatar" class="form-control" type="file" id="formFile">
                             </div>
-                            <div class="form-group">
-                                <label for="solidSelect">Solid Select</label>
-                                <select class="form-control input-solid" id="solidSelect" fdprocessedid="oq2gtk">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                            </div>											
-                        </div>
-                        <div class="card-action">
-                            <button class="btn btn-success" fdprocessedid="sukchqe">Submit</button>
-                            <button class="btn btn-danger" fdprocessedid="t0nv9f">Cancel</button>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-title">Form Control Styles</div>
                         </div>
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="largeInput">Large Input</label>
-                                <input type="text" class="form-control form-control-lg" id="largeInput" placeholder="Large Input" fdprocessedid="1ggl1y">
-                            </div>
-                            <div class="form-group">
-                                <label for="largeInput">Default Input</label>
-                                <input type="text" class="form-control form-control" id="defaultInput" placeholder="Default Input" fdprocessedid="hdrcu8">
-                            </div>
-                            <div class="form-group">
-                                <label for="smallInput">Small Input</label>
-                                <input type="text" class="form-control form-control-sm" id="smallInput" placeholder="Small Input" fdprocessedid="pvtcn">
-                            </div>
-                            <div class="form-group">
-                                <label for="largeSelect">Large Select</label>
-                                <select class="form-control form-control-lg" id="largeSelect" fdprocessedid="e4xbp">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="defaultSelect">Default Select</label>
-                                <select class="form-control form-control" id="defaultSelect" fdprocessedid="c3z6rn">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="smallSelect">Small Select</label>
-                                <select class="form-control form-control-sm" id="smallSelect" fdprocessedid="ee79gd">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                </select>
-                            </div>
+                            <button class="btn btn-success">Update Information</button>
                         </div>
-                        <div class="card-action">
-                            <button class="btn btn-success" fdprocessedid="x4gdzf">Submit</button>
-                            <button class="btn btn-danger" fdprocessedid="s13br">Cancel</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

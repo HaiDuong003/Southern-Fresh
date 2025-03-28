@@ -15,7 +15,8 @@
                 action=""> --}}
             <div class="navbar-right navbar-form nav-search col-3 align-self-end" style="padding-bottom: 20px">
                 <div class="input-group">
-                    <input type="text" placeholder="Search by name ..." class="form-control" name="name" id="name">
+                    <input type="text" placeholder="Search by name ..." class="form-control" name="name"
+                        id="name">
                     <div class="input-group-append">
                         <span class="input-group-text">
                             <i class="la la-search search-icon"></i>
@@ -32,20 +33,22 @@
 
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
-        $(document).ready(function(){
-            function LoadEmployee(page = 1){
+        $(document).ready(function() {
+            function LoadEmployee(page = 1) {
                 let name = $('#name').val();
                 let is_active = $('#is_active').val();
                 $.ajax({
                     url: "{{ route('filterManager') }}?page=" + page,
                     type: "GET",
                     data: {
-                        name: name, 
+                        name: name,
                         is_active: is_active
                     },
-                    success: function(response){
+                    success: function(response) {
                         // render view
                         $('#employeeTable').html(response);
                         // remove class active in paginate
@@ -57,17 +60,17 @@
             }
 
             // call ajax when fill input
-            $('#name').on('keyup', function(){
+            $('#name').on('keyup', function() {
                 LoadEmployee();
             });
 
             // call ajax when select value
-            $('#is_active').on('change', function(){
+            $('#is_active').on('change', function() {
                 LoadEmployee();
             });
 
             // call ajax when click in paginate
-            $(document).on('click', '.pagination a', function(event){
+            $(document).on('click', '.pagination a', function(event) {
                 event.preventDefault(); // block reload website
                 let page = $(this).attr('href').split('page=')[1]; // get page by url
                 LoadEmployee(page);
@@ -75,4 +78,3 @@
         });
     </script>
 @endsection
-

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\CMS;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Models\User;
 use App\Services\CMS\EmployeeService;
 use Illuminate\Http\Request;
 
@@ -83,9 +84,34 @@ class EmployeeController extends Controller
         return view('managements.employee.edit_employee', compact('employee'));
     }
 
-    public function editEmployee()
+    public function editEmployee(Request $request, $id)
     {
         //
+        $employee = $this->employee->findById($id);
+        if ($request->form_type == 'update_account') {
+            if ($request['name'] == $employee->name || $request['name'] == '') {
+                if ($request['role'] == 'employee') {
+                    return redirect()->route('listEmployee');
+                } elseif ($request['role'] == 'manager') {
+                    return redirect()->route('listManager');
+                }
+            } else {
+                $userUpdate = [
+                    'name' => $request['name'],
+                    'role' => $request['role'],
+                ];
+                $update = User::find($id)->update($userUpdate);
+                if (!empty($update)) {
+                    if ($request['role'] == 'employee') {
+                        return redirect()->route('listEmployee');
+                    } elseif ($request['role'] == 'manager') {
+                        return redirect()->route('listManager');
+                    }
+                }
+            }
+        } elseif ($request->form_type == 'update_information') {
+            //
+        }
     }
 
     public function addEmployeeForm()
@@ -119,8 +145,6 @@ class EmployeeController extends Controller
 
     public function deleteEmployee(int $id)
     {
-        //
-        // $employeeDelete = $this->employee->
         $deleted = $this->employee->delete($id);
         if ($deleted['1'] == 'employee') {
             return redirect()->route('listEmployee');

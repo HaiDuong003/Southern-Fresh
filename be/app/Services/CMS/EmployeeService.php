@@ -62,4 +62,9 @@ class EmployeeService
             //
         }
     }
+
+    public function update(array $data, $id)
+    {
+        return $this->employeeRepository->update($data, $id);
+    }
 }

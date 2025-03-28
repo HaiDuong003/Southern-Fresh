@@ -22,7 +22,9 @@
                         {{-- @if ($page == $paginator->currentPage())
                             <li class="page-item active"><a href="{{ $url }}" class="page-link">{{ $page }}</a></li>
                         @else --}}
-                            <li id="{{ 'item' . $page }}" class="page-item  {{ $page == $paginator->currentPage() ? 'active' : '' }}"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                        <li id="{{ 'item' . $page }}"
+                            class="page-item  {{ $page == $paginator->currentPage() ? 'active' : '' }}"><a
+                                class="page-link" href="{{ $url }}">{{ $page }}</a></li>
                         {{-- @endif --}}
                     @endforeach
                 @endif
@@ -39,13 +41,13 @@
                     </a>
                 </li>
             @else
-            <li class="page-item">
-                <span class="page-link" aria-label="Next">
-                    <span aria-hidden="true">»</span>
-                    <span class="sr-only">Next</span>
-                </span>
-            </li>
-            @endif 
+                <li class="page-item">
+                    <span class="page-link" aria-label="Next">
+                        <span aria-hidden="true">»</span>
+                        <span class="sr-only">Next</span>
+                    </span>
+                </li>
+            @endif
         </ul>
     </nav>
 @endif

@@ -9,7 +9,7 @@ interface EmployeeInterface
     public function findByEmail(string $email);
     public function findById(int $id);
     public function create(array $data);
-    public function update(int $id, array $data);
+    public function update(array $data, $id);
     public function delete(int $id);
     public function find($row, $value);
     public function paginate($count);

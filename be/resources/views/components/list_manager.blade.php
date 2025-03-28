@@ -10,29 +10,30 @@
         </tr>
     </thead>
     <tbody id="">
-        @foreach($list as $key => $item)
+        @foreach ($list as $key => $item)
             <tr id="">
                 <td>{{ ++$key }}</td>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->email }}</td>
-                <td class="{{ $item->is_active == true ? 'text-success' : 'text-danger' }}">{{ $item->is_active == true ? 'Activated' : 'Non Active' }}</td>
+                <td class="{{ $item->is_active == true ? 'text-success' : 'text-danger' }}">
+                    {{ $item->is_active == true ? 'Activated' : 'Non Active' }}</td>
                 <td>
                     <div class="form-button-action">
                         <a href="{{ route('editEmployee', $item->id) }}">
                             <button type="button" data-toggle="tooltip" title=""
-                            class="btn btn-link <btn-simple-primary" data-original-title="Edit Task"
-                            fdprocessedid="qqrqzq">
-                            <i class="la la-edit"></i>
-                        </button>
+                                class="btn btn-link <btn-simple-primary" data-original-title="Edit Task"
+                                fdprocessedid="qqrqzq">
+                                <i class="la la-edit"></i>
+                            </button>
                         </a>
-                        
+
                         <form action="{{ route('deleteEmployee', $item->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button data-toggle="tooltip" title=""
-                            class="btn btn-link btn-simple-danger" data-original-title="Remove" fdprocessedid="ds9ov5">
-                            <i class="la la-times"></i>
-                        </button>
+                            <button data-toggle="tooltip" title="" class="btn btn-link btn-simple-danger"
+                                data-original-title="Remove" fdprocessedid="ds9ov5">
+                                <i class="la la-times"></i>
+                            </button>
                         </form>
                     </div>
                 </td>
@@ -42,7 +43,7 @@
                     </a>
                 </td>
             </tr>
-            @endforeach
+        @endforeach
     </tbody>
 </table>
 <ul class="pagination pg-primary">
