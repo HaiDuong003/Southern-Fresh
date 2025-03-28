@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('bank_account')->require();
             $table->string('phone_number')->require();
             $table->String('address')->require();
+
             $table->timestamps();
         });
     }

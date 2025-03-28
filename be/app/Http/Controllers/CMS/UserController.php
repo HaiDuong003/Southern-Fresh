@@ -71,6 +71,7 @@ class UserController extends Controller
     {
         //
         $validated = $request->validated();
+        dd($validated);
         $userRegister = $this->userService->create($validated);
     }
 

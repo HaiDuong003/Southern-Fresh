@@ -31,15 +31,18 @@ class EmployeeRepository implements EmployeeInterface
     }
     public function create(array $data)
     {
-        //
+        // 
+        return $this->employee->create($data);
     }
-    public function update(int $id, array $data)
+    public function update(array $data, $id)
     {
         //
+        return $this->employee->update($data, ['id' => $id]);
     }
     public function delete(int $id)
     {
         //
+        return $this->employee->delete();
     }
     public function find($row, $value)
     {

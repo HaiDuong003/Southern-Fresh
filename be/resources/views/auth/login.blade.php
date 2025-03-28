@@ -271,16 +271,17 @@
                 @csrf
                 <h1>Create Account</h1>
                 <span>or use your email for registration</span>
-                <input type="text" placeholder="Name" name="name" id="name_register"/>
+                <input type="text" placeholder="Name" name="name" id="name_register" />
                 <span style="font-size: 12px; color: red;" id="error_name">
                 </span>
-                <input type="email" placeholder="Email" name="email" id="email_register"/>
+                <input type="email" placeholder="Email" name="email" id="email_register" />
                 <span style="font-size: 12px; color: red;" id="error_email">
                 </span>
-                <input type="password" placeholder="Password" name="password" id="password_register"/>
+                <input type="password" placeholder="Password" name="password" id="password_register" />
                 <span style="font-size: 12px; color: red;" id="error_password">
                 </span>
-                <input type="password" placeholder="Check Password" name="password_confirmation" id="password_register_confirmation"/>
+                <input type="password" placeholder="Check Password" name="password_confirmation"
+                    id="password_register_confirmation" />
                 <span style="font-size: 12px; color: red;" id="error_password_confirm">
                 </span>
                 <button id="abc">Sign Up</button>
@@ -291,16 +292,16 @@
                 @csrf
                 <h1>Sign in</h1>
                 <span>or use your account</span>
-                <input type="email" placeholder="Email" name="email" value="{{ old('email') }}"/>
-                <span style="font-size: 12px; color: red;"> 
+                <input type="email" placeholder="Email" name="email" value="{{ old('email') }}" />
+                <span style="font-size: 12px; color: red;">
                     @error('email')
-                    {{ $message ? $message : ' ' }}
+                        {{ $message ? $message : ' ' }}
                     @enderror
                 </span>
                 <input type="password" placeholder="Password" name="password" />
                 @error('password')
-                <span
-                    style="margin-bottom: 10px; font-size: 12px; color: red; visibility: {{ $message ? '' : 'hidden' }}">{{ $message ? $message : ' ' }}</span>
+                    <span
+                        style="margin-bottom: 10px; font-size: 12px; color: red; visibility: {{ $message ? '' : 'hidden' }}">{{ $message ? $message : ' ' }}</span>
                 @enderror
                 <button>Sign In</button>
             </form>
@@ -335,7 +336,7 @@
         });
 
         const noLoading = document.getElementById('abc');
-        noLoading.addEventListener('click', (even)=>{
+        noLoading.addEventListener('click', (even) => {
             let error = false;
             let name = document.getElementById('name_register').value.trim();
             let email = document.getElementById('email_register').value.trim();
@@ -347,25 +348,25 @@
             document.getElementById('error_email').textContent = '';
             document.getElementById('error_password').textContent = '';
             document.getElementById('error_password_confirm').textContent = '';
-            if(name.length == 0){
+            if (name.length == 0) {
                 document.getElementById('error_name').textContent = 'You must fill name';
                 even.preventDefault();
             }
-            if(email.length == 0){
+            if (email.length == 0) {
                 document.getElementById('error_email').textContent = 'You must fill email';
                 even.preventDefault();
-            } else if(!emailPattern.test(email)){
-                    document.getElementById('error_email').textContent = 'It is not an email';
-                    even.preventDefault();
-                }
-            if(password.length == 0){
+            } else if (!emailPattern.test(email)) {
+                document.getElementById('error_email').textContent = 'It is not an email';
+                even.preventDefault();
+            }
+            if (password.length == 0) {
                 document.getElementById('error_password').textContent = 'You must fill password';
                 even.preventDefault();
             }
-            if(password_confirmation.length == 0){
+            if (password_confirmation.length == 0) {
                 document.getElementById('error_password_confirm').textContent = 'You must confirm password';
                 even.preventDefault();
-            } else if(password_confirmation != password){
+            } else if (password_confirmation != password) {
                 document.getElementById('error_password_confirm').textContent = 'Password wrong';
                 even.preventDefault();
             }

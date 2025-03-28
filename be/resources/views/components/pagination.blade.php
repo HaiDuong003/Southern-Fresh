@@ -2,7 +2,6 @@
     <nav>
         <ul class="pagination pg-primary">
             @if ($paginator->onFirstPage())
-                {{-- <li class="disabled page-item"><span>« Trước</span></li> --}}
                 <li class="page-item">
                     <span class="page-link" aria-label="Previous">
                         <span aria-hidden="true">«</span>
@@ -10,7 +9,6 @@
                     </span>
                 </li>
             @else
-                {{-- <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">« Trước</a></li> --}}
                 <li class="page-item">
                     <a class="page-link" href="{{ $paginator->previousPageUrl() }}" aria-label="Previous">
                         <span aria-hidden="true">«</span>
@@ -24,7 +22,9 @@
                         {{-- @if ($page == $paginator->currentPage())
                             <li class="page-item active"><a href="{{ $url }}" class="page-link">{{ $page }}</a></li>
                         @else --}}
-                            <li class="page-item {{ $page == $paginator->currentPage() ? 'active' : '' }}"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                        <li id="{{ 'item' . $page }}"
+                            class="page-item  {{ $page == $paginator->currentPage() ? 'active' : '' }}"><a
+                                class="page-link" href="{{ $url }}">{{ $page }}</a></li>
                         {{-- @endif --}}
                     @endforeach
                 @endif
@@ -34,7 +34,6 @@
             @endforeach
 
             @if ($paginator->hasMorePages())
-                {{-- <li><a href="{{ $paginator->nextPageUrl() }}" rel="next">Sau »</a></li> --}}
                 <li class="page-item">
                     <a class="page-link" href="{{ $paginator->nextPageUrl() }}" aria-label="Next">
                         <span aria-hidden="true">»</span>
@@ -42,12 +41,12 @@
                     </a>
                 </li>
             @else
-            <li class="page-item">
-                <span class="page-link" aria-label="Next">
-                    <span aria-hidden="true">»</span>
-                    <span class="sr-only">Next</span>
-                </span>
-            </li>
+                <li class="page-item">
+                    <span class="page-link" aria-label="Next">
+                        <span aria-hidden="true">»</span>
+                        <span class="sr-only">Next</span>
+                    </span>
+                </li>
             @endif
         </ul>
     </nav>
